@@ -100,13 +100,30 @@ export const DEFAULT_CHANNELS = [
 ] as const;
 
 export const RELAY_THEME = {
-  background: "#282b30",
-  sidebar: "#2f3136",
-  surface: "#40444b",
-  text: "#dcddde",
-  muted: "#72767d",
-  accent: "#7289da",
-  green: "#43b581"
+  /* Backgrounds — OLED optimized */
+  bgBase:    "#000000",
+  bg1:       "#060606",
+  bg2:       "#0d0d0d",
+  bg3:       "#141414",
+  bg4:       "#1c1c1c",
+  sidebar:   "#060606",
+  panel:     "#0a0a0a",
+  /* Text */
+  text1:     "#f2f3f5",
+  text2:     "#b9bbbe",
+  text3:     "#72767d",
+  text4:     "#4f545c",
+  /* Accent — Electric Blue */
+  accent:    "#4f83ff",
+  accentHov: "#6395ff",
+  /* Status */
+  online:    "#23a55a",
+  idle:      "#f0b232",
+  dnd:       "#f23f42",
+  offline:   "#80848e",
+  /* Semantic */
+  danger:    "#f23f42",
+  success:   "#23a55a"
 } as const;
 
 export const RELAY_SCHEMA_SQL = `
