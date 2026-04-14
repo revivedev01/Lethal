@@ -122,16 +122,16 @@ function VoiceTile({
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: "12px",
-        padding: "24px 20px",
+        gap: "14px",
+        padding: "28px 24px",
         borderRadius: "16px",
         background: "var(--bg-2)",
         border: isSpeaking
           ? "2px solid var(--speaking)"
           : "2px solid var(--border)",
-        minWidth: "130px",
-        flex: "1 1 130px",
-        maxWidth: "180px",
+        minWidth: "160px",
+        flex: "1 1 160px",
+        maxWidth: "220px",
         position: "relative",
         boxShadow: isSpeaking ? "0 0 0 4px var(--speaking-glow), var(--shadow-md)" : "var(--shadow-sm)",
         transition: "border-color 0.2s ease, box-shadow 0.2s ease",
@@ -152,19 +152,19 @@ function VoiceTile({
 
       {/* Avatar */}
       <div style={{
-        width: "72px",
-        height: "72px",
+        width: "88px",
+        height: "88px",
         borderRadius: "50%",
         background: color,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        fontSize: "28px",
+        fontSize: "34px",
         fontWeight: 700,
         color: "#fff",
         fontFamily: "'Outfit', sans-serif",
         flexShrink: 0,
-        boxShadow: isSpeaking ? `0 0 20px ${color}66` : "none",
+        boxShadow: isSpeaking ? `0 0 24px ${color}66` : "none",
         transition: "box-shadow 0.2s ease",
       }}>
         {getInitial(username)}
@@ -173,7 +173,7 @@ function VoiceTile({
       {/* Name + status */}
       <div style={{ textAlign: "center" }}>
         <p style={{
-          fontSize: "14px",
+          fontSize: "15px",
           fontWeight: 600,
           color: "var(--text-1)",
           fontFamily: "'Outfit', sans-serif",
@@ -195,7 +195,7 @@ function VoiceTile({
           )}
         </p>
         <p style={{
-          fontSize: "12px",
+          fontSize: "13px",
           color: isMuted ? "var(--muted-mic)" : isSpeaking ? "var(--speaking)" : "var(--text-3)"
         }}>
           {isMuted ? "Muted" : isSpeaking ? "Speaking..." : "Connected"}
@@ -204,8 +204,8 @@ function VoiceTile({
 
       {/* Mic icon */}
       <div style={{
-        width: "32px",
-        height: "32px",
+        width: "36px",
+        height: "36px",
         borderRadius: "50%",
         background: isMuted ? "var(--danger-subtle)" : "var(--bg-4)",
         display: "flex",
@@ -229,9 +229,9 @@ function MessageGroup({ group, isOwn }: { group: MessageGroup; isOwn: boolean })
   return (
     <div style={{
       display: "flex",
-      gap: "14px",
-      padding: "6px 20px",
-      borderRadius: "8px",
+      gap: "16px",
+      padding: "2px 16px 2px 20px",
+      borderRadius: "4px",
       transition: "background 0.1s ease",
       cursor: "default",
     }}
@@ -240,8 +240,8 @@ function MessageGroup({ group, isOwn }: { group: MessageGroup; isOwn: boolean })
     >
       {/* Avatar */}
       <div style={{
-        width: "42px",
-        height: "42px",
+        width: "40px",
+        height: "40px",
         borderRadius: "50%",
         background: color,
         display: "flex",
@@ -252,7 +252,7 @@ function MessageGroup({ group, isOwn }: { group: MessageGroup; isOwn: boolean })
         color: "#fff",
         fontFamily: "'Outfit', sans-serif",
         flexShrink: 0,
-        marginTop: "2px",
+        marginTop: "4px",
       }}>
         {getInitial(group.authorName)}
       </div>
@@ -262,7 +262,7 @@ function MessageGroup({ group, isOwn }: { group: MessageGroup; isOwn: boolean })
         {/* Author + time */}
         <div style={{ display: "flex", alignItems: "baseline", gap: "8px", marginBottom: "4px" }}>
           <span style={{
-            fontSize: "15px",
+            fontSize: "16px",
             fontWeight: 600,
             color: isOwn ? "var(--accent)" : "var(--text-1)",
             fontFamily: "'Outfit', sans-serif",
@@ -289,8 +289,8 @@ function MessageGroup({ group, isOwn }: { group: MessageGroup; isOwn: boolean })
         {/* Message bodies */}
         {group.messages.map((msg, i) => (
           <p key={msg.id} style={{
-            fontSize: "15px",
-            lineHeight: 1.6,
+            fontSize: "16px",
+            lineHeight: 1.625,
             color: "var(--text-2)",
             whiteSpace: "pre-wrap",
             wordBreak: "break-word",
@@ -385,14 +385,15 @@ function TextPanel() {
     }}>
       {/* Channel header */}
       <div style={{
-        height: "56px",
+        height: "48px",
         display: "flex",
         alignItems: "center",
-        padding: "0 20px",
+        padding: "0 16px",
         gap: "10px",
         borderBottom: "1px solid var(--border)",
         background: "var(--bg-1)",
         flexShrink: 0,
+        boxShadow: "0 1px 0 rgba(0,0,0,0.3)",
       }}>
         <span style={{ color: "var(--text-3)" }}><IconHash /></span>
         <span style={{
@@ -422,22 +423,22 @@ function TextPanel() {
       <div ref={feedRef} style={{
         flex: 1,
         overflowY: "auto",
-        padding: "16px 0",
+        padding: "20px 0",
         display: "flex",
         flexDirection: "column",
-        gap: "4px",
+        gap: "2px",
         scrollBehavior: "smooth",
       }}>
         {groups.length === 0 ? (
           <div style={{
             margin: "20px 20px 0",
-            padding: "24px",
+            padding: "28px",
             borderRadius: "12px",
             background: "var(--bg-2)",
             border: "1px dashed var(--border-hover)",
             textAlign: "center",
           }}>
-            <p style={{ fontSize: "15px", color: "var(--text-3)" }}>
+            <p style={{ fontSize: "16px", color: "var(--text-3)" }}>
               No messages yet. Be the first to say something! 👋
             </p>
           </div>
@@ -468,14 +469,14 @@ function TextPanel() {
       )}
 
       {/* Composer */}
-      <form onSubmit={handleSend} style={{ padding: "0 16px 16px", flexShrink: 0 }}>
+      <form onSubmit={handleSend} style={{ padding: "0 16px 20px", flexShrink: 0 }}>
         <div style={{
           display: "flex",
           alignItems: "flex-end",
-          gap: "10px",
-          padding: "12px 16px",
+          gap: "12px",
+          padding: "14px 16px",
           background: "var(--bg-3)",
-          borderRadius: "12px",
+          borderRadius: "8px",
           border: "1px solid var(--border)",
           transition: "border-color 0.15s ease",
         }}
@@ -484,18 +485,17 @@ function TextPanel() {
         >
           {/* User avatar in composer */}
           <div style={{
-            width: "32px",
-            height: "32px",
+            width: "36px",
+            height: "36px",
             borderRadius: "50%",
             background: getAvatarColor(user?.username ?? "?"),
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            fontSize: "13px",
+            fontSize: "14px",
             fontWeight: 700,
             color: "#fff",
             flexShrink: 0,
-            marginBottom: "2px",
           }}>
             {getInitial(user?.username ?? "?")}
           </div>
@@ -506,7 +506,7 @@ function TextPanel() {
             onChange={e => {
               setComposer(e.target.value);
               e.target.style.height = "auto";
-              e.target.style.height = `${Math.min(e.target.scrollHeight, 120)}px`;
+              e.target.style.height = `${Math.min(e.target.scrollHeight, 144)}px`;
             }}
             onKeyDown={handleKeyDown}
             placeholder={`Message #${activeChannel?.slug ?? "general"}`}
@@ -516,12 +516,12 @@ function TextPanel() {
               border: "none",
               outline: "none",
               resize: "none",
-              fontSize: "15px",
+              fontSize: "16px",
               color: "var(--text-1)",
               lineHeight: 1.5,
               fontFamily: "inherit",
               minHeight: "24px",
-              maxHeight: "120px",
+              maxHeight: "144px",
               paddingTop: "2px",
               overflow: "hidden",
             }}
@@ -531,9 +531,9 @@ function TextPanel() {
             type="submit"
             disabled={!composer.trim() || sending}
             style={{
-              width: "36px",
-              height: "36px",
-              borderRadius: "10px",
+              width: "40px",
+              height: "40px",
+              borderRadius: "8px",
               border: "none",
               background: composer.trim() ? "var(--accent)" : "var(--bg-4)",
               color: composer.trim() ? "#fff" : "var(--text-4)",
@@ -582,14 +582,15 @@ function VoicePanel({ username }: { username: string }) {
     }}>
       {/* Voice header */}
       <div style={{
-        height: "56px",
+        height: "48px",
         display: "flex",
         alignItems: "center",
-        padding: "0 20px",
+        padding: "0 16px",
         gap: "10px",
         borderBottom: "1px solid var(--border)",
         background: "var(--bg-1)",
         flexShrink: 0,
+        boxShadow: "0 1px 0 rgba(0,0,0,0.3)",
       }}>
         <span style={{ color: "var(--speaking)" }}><IconVolume /></span>
         <span style={{
@@ -639,34 +640,34 @@ function VoicePanel({ username }: { username: string }) {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            gap: "10px",
-            padding: "24px 20px",
+            gap: "14px",
+            padding: "28px 24px",
             borderRadius: "16px",
             background: "transparent",
             border: "2px dashed var(--border)",
-            minWidth: "130px",
-            flex: "1 1 130px",
-            maxWidth: "180px",
+            minWidth: "160px",
+            flex: "1 1 160px",
+            maxWidth: "220px",
             color: "var(--text-4)",
           }}>
             <div style={{
-              width: "56px", height: "56px", borderRadius: "50%",
+              width: "72px", height: "72px", borderRadius: "50%",
               background: "var(--bg-2)",
               display: "flex", alignItems: "center", justifyContent: "center",
             }}>
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
                 <circle cx="12" cy="7" r="4"/>
               </svg>
             </div>
-            <span style={{ fontSize: "13px", color: "var(--text-4)" }}>Waiting...</span>
+            <span style={{ fontSize: "14px", color: "var(--text-4)" }}>Waiting...</span>
           </div>
         ))}
       </div>
 
       {/* Voice controls bar */}
       <div style={{
-        padding: "12px 20px 16px",
+        padding: "14px 20px 18px",
         borderTop: "1px solid var(--border)",
         display: "flex",
         alignItems: "center",
@@ -681,12 +682,12 @@ function VoicePanel({ username }: { username: string }) {
             display: "flex",
             alignItems: "center",
             gap: "8px",
-            padding: "9px 16px",
-            borderRadius: "10px",
+            padding: "10px 20px",
+            borderRadius: "8px",
             border: "none",
             background: micMuted ? "var(--danger-subtle)" : "var(--bg-3)",
             color: micMuted ? "var(--danger)" : "var(--text-2)",
-            fontSize: "14px",
+            fontSize: "15px",
             fontWeight: 500,
             cursor: "pointer",
             transition: "all 0.15s ease",
@@ -736,28 +737,28 @@ export function ChatLayout() {
     }}>
       {/* ── Left Icon Rail */}
       <div style={{
-        width: "68px",
+        width: "72px",
         background: "var(--sidebar)",
         borderRight: "1px solid var(--border)",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         padding: "12px 0",
-        gap: "6px",
+        gap: "4px",
         flexShrink: 0,
       }}>
         {/* Server logo / name */}
         <div
           title={server?.name ?? "Relay"}
           style={{
-            width: "44px",
-            height: "44px",
-            borderRadius: "14px",
+            width: "48px",
+            height: "48px",
+            borderRadius: "16px",
             background: "var(--accent)",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            fontSize: "20px",
+            fontSize: "22px",
             fontWeight: 800,
             color: "#fff",
             fontFamily: "'Outfit', sans-serif",
@@ -771,7 +772,7 @@ export function ChatLayout() {
         </div>
 
         {/* Divider */}
-        <div style={{ width: "32px", height: "2px", borderRadius: "1px", background: "var(--border)", margin: "2px 0" }} />
+        <div style={{ width: "36px", height: "2px", borderRadius: "1px", background: "var(--border)", margin: "4px 0 6px" }} />
 
         {/* Both / text channel */}
         <button
@@ -779,8 +780,8 @@ export function ChatLayout() {
           title={textChannel?.name ?? "Text Chat"}
           data-tooltip={textChannel?.name ?? "Text Chat"}
           style={{
-            width: "44px",
-            height: "44px",
+            width: "48px",
+            height: "48px",
             borderRadius: activeView === "both" ? "16px" : "12px",
             border: "none",
             background: activeView === "both" ? "var(--accent-subtle)" : "var(--bg-3)",
@@ -816,8 +817,8 @@ export function ChatLayout() {
           title="Text only"
           data-tooltip="Text only"
           style={{
-            width: "44px",
-            height: "44px",
+            width: "48px",
+            height: "48px",
             borderRadius: activeView === "text" ? "16px" : "12px",
             border: "none",
             background: activeView === "text" ? "var(--accent-subtle)" : "var(--bg-3)",
@@ -853,8 +854,8 @@ export function ChatLayout() {
           title={voiceChannel?.name ?? "Voice"}
           data-tooltip={voiceChannel?.name ?? "Voice"}
           style={{
-            width: "44px",
-            height: "44px",
+            width: "48px",
+            height: "48px",
             borderRadius: activeView === "voice" ? "16px" : "12px",
             border: "none",
             background: activeView === "voice" ? "var(--accent-subtle)" : "var(--bg-3)",
@@ -891,7 +892,7 @@ export function ChatLayout() {
         <button
           title="Settings"
           style={{
-            width: "44px", height: "44px",
+            width: "48px", height: "48px",
             borderRadius: "12px", border: "none",
             background: "var(--bg-3)", color: "var(--text-3)",
             display: "flex", alignItems: "center", justifyContent: "center",
@@ -916,7 +917,7 @@ export function ChatLayout() {
           onClick={logout}
           title="Sign out"
           style={{
-            width: "44px", height: "44px",
+            width: "48px", height: "48px",
             borderRadius: "12px", border: "none",
             background: "var(--bg-3)", color: "var(--text-3)",
             display: "flex", alignItems: "center", justifyContent: "center",
@@ -938,11 +939,11 @@ export function ChatLayout() {
 
         {/* User avatar at very bottom */}
         <div style={{
-          width: "36px", height: "36px",
+          width: "40px", height: "40px",
           borderRadius: "50%",
           background: getAvatarColor(user?.username ?? "?"),
           display: "flex", alignItems: "center", justifyContent: "center",
-          fontSize: "14px", fontWeight: 700, color: "#fff",
+          fontSize: "15px", fontWeight: 700, color: "#fff",
           fontFamily: "'Outfit', sans-serif",
           marginTop: "4px",
           flexShrink: 0,
