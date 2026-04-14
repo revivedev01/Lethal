@@ -633,6 +633,9 @@ p {
   0%   { background-position: -200% 0; }
   100% { background-position:  200% 0; }
 }
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
 
 .anim-fade-up     { animation: fadeUp      0.22s ease both; }
 .anim-fade-in     { animation: fadeIn      0.18s ease both; }
@@ -839,4 +842,29 @@ p {
 ::selection {
   background: var(--accent-muted);
   color: var(--text-1);
+}
+
+/* ────────────────────────────────────────────────────────────────
+   TOOLTIP — right-side variant (for icon rail)
+   ──────────────────────────────────────────────────────────────── */
+[data-tooltip-right]::before {
+  left: calc(100% + 10px);
+  top: 50%;
+  bottom: auto;
+  transform: translateY(-50%) scale(0.9);
+}
+[data-tooltip-right]:hover::before {
+  transform: translateY(-50%) scale(1);
+}
+
+/* ────────────────────────────────────────────────────────────────
+   AUTH SCREEN — RESPONSIVE
+   ──────────────────────────────────────────────────────────────── */
+@media (max-width: 700px) {
+  .r-auth-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .r-auth-hero {
+    display: none !important;
+  }
 }
