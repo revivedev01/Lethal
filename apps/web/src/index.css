@@ -1,0 +1,58 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --relay-background: #282b30;
+  --relay-sidebar: #2f3136;
+  --relay-surface: #40444b;
+  --relay-text: #dcddde;
+  --relay-muted: #72767d;
+  --relay-accent: #7289da;
+  --relay-green: #43b581;
+  color: var(--relay-text);
+  background:
+    radial-gradient(circle at top left, rgba(114, 137, 218, 0.18), transparent 28%),
+    radial-gradient(circle at bottom right, rgba(67, 181, 129, 0.12), transparent 24%),
+    var(--relay-background);
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: transparent;
+}
+
+h1,
+h2,
+h3,
+.display-font {
+  font-family: "Space Grotesk", sans-serif;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+}

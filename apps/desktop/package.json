@@ -1,0 +1,16 @@
+{
+  "name": "@relay/desktop",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./src/main.cjs",
+  "scripts": {
+    "dev": "cross-env RELAY_WEB_URL=http://localhost:5173 electron ./src/main.cjs",
+    "start": "electron ./src/main.cjs",
+    "build": "node -e \"console.log('The desktop wrapper loads the web build at runtime.')\"",
+    "typecheck": "node -e \"console.log('Desktop wrapper uses plain Electron scripts for now.')\""
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "electron": "^35.7.5"
+  }
+}
