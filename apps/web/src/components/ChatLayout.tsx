@@ -13,12 +13,26 @@ import type { Message } from "@relay/config";
 /* ─────────────────────────────────────────────────────
    HELPERS
 ───────────────────────────────────────────────────── */
-const formatTime = (v: string) =>
-  new Intl.DateTimeFormat(undefined, {
+const formatTimestamp = (v: string): string => {
+  const d = new Date(v);
+  const now = new Date();
+  const isToday =
+    d.getFullYear() === now.getFullYear() &&
+    d.getMonth() === now.getMonth() &&
+    d.getDate() === now.getDate();
+  const timeStr = new Intl.DateTimeFormat(undefined, {
     hour: "numeric",
     minute: "2-digit",
     hour12: true,
-  }).format(new Date(v));
+  }).format(d);
+  if (isToday) return `Today at ${timeStr}`;
+  const dateStr = new Intl.DateTimeFormat(undefined, {
+    month: "2-digit",
+    day: "2-digit",
+    year: "numeric",
+  }).format(d);
+  return `${dateStr} ${timeStr}`;
+};
 
 const getInitial = (name: string) => name.charAt(0).toUpperCase();
 
@@ -163,78 +177,88 @@ function VoiceTile({ username, isSpeaking, isMuted, isYou }: {
 }
 
 /* ─────────────────────────────────────────────────────
-   MESSAGE GROUP  (matches screenshot exactly)
+   MESSAGE GROUP  (Discord-style)
 ───────────────────────────────────────────────────── */
 function MessageGroup({ group, isOwn }: { group: MessageGroup; isOwn: boolean }) {
   const color = getAvatarColor(group.authorName);
   const firstMsg = group.messages[0];
 
   return (
-    <div
-      style={{
-        display: "flex",
-        gap: "16px",
-        padding: "2px 16px",
-        transition: "background 0.08s ease",
-        cursor: "default",
-      }}
-      onMouseEnter={e => (e.currentTarget.style.background = "var(--bg-hover)")}
-      onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
-    >
-      {/* Avatar */}
-      <div style={{
-        width: "40px", height: "40px", borderRadius: "50%",
-        background: color, display: "flex", alignItems: "center",
-        justifyContent: "center", fontSize: "17px", fontWeight: 700,
-        color: "#fff", fontFamily: "'Outfit', sans-serif",
-        flexShrink: 0, marginTop: "4px",
-        position: "relative",
-      }}>
-        {getInitial(group.authorName)}
-        {isOwn && (
-          <span style={{
-            position: "absolute", bottom: -1, right: -1,
-            width: "12px", height: "12px", borderRadius: "50%",
-            background: "var(--online)", border: "2px solid var(--bg-base)",
-          }} />
-        )}
-      </div>
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      {group.messages.map((msg, i) => {
+        const isFirst = i === 0;
+        return (
+          <div
+            key={msg.id}
+            style={{
+              display: "flex",
+              gap: "16px",
+              padding: isFirst ? "8px 16px 2px" : "1px 16px 1px",
+              transition: "background 0.08s ease",
+              cursor: "default",
+              alignItems: "flex-start",
+            }}
+            onMouseEnter={e => (e.currentTarget.style.background = "var(--bg-hover)")}
+            onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
+          >
+            {/* Avatar OR spacer */}
+            {isFirst ? (
+              <div style={{
+                width: "40px", height: "40px", borderRadius: "50%",
+                background: color, display: "flex", alignItems: "center",
+                justifyContent: "center", fontSize: "17px", fontWeight: 700,
+                color: "#fff", fontFamily: "'Outfit', sans-serif",
+                flexShrink: 0, marginTop: "1px", position: "relative",
+              }}>
+                {getInitial(group.authorName)}
+                {isOwn && (
+                  <span style={{
+                    position: "absolute", bottom: -1, right: -1,
+                    width: "12px", height: "12px", borderRadius: "50%",
+                    background: "var(--online)", border: "2px solid var(--bg-base)",
+                  }} />
+                )}
+              </div>
+            ) : (
+              /* Spacer so text lines up with first message */
+              <div style={{ width: "40px", flexShrink: 0 }} />
+            )}
 
-      {/* Content */}
-      <div style={{ flex: 1, minWidth: 0 }}>
-        {/* Author row */}
-        <div style={{ display: "flex", alignItems: "baseline", gap: "8px", marginBottom: "3px" }}>
-          <span style={{
-            fontSize: "16px", fontWeight: 600,
-            color: isOwn ? color : "var(--text-1)",
-            fontFamily: "'Outfit', sans-serif",
-          }}>
-            {group.authorName}
-          </span>
-          {isOwn && (
-            <span style={{
-              fontSize: "11px", color: "var(--text-3)", fontWeight: 500,
-            }}>[you]</span>
-          )}
-          <span style={{ fontSize: "12px", color: "var(--text-4)", fontWeight: 400 }}>
-            Today at {firstMsg ? formatTime(firstMsg.createdAt) : ""}
-          </span>
-        </div>
-
-        {/* Message lines */}
-        {group.messages.map((msg, i) => (
-          <p key={msg.id} style={{
-            fontSize: "16px",
-            lineHeight: 1.5,
-            color: "var(--text-2)",
-            whiteSpace: "pre-wrap",
-            wordBreak: "break-word",
-            marginTop: i > 0 ? "2px" : 0,
-          }}>
-            {msg.content}
-          </p>
-        ))}
-      </div>
+            {/* Content */}
+            <div style={{ flex: 1, minWidth: 0 }}>
+              {isFirst && (
+                <div style={{ display: "flex", alignItems: "baseline", gap: "8px", marginBottom: "3px" }}>
+                  <span style={{
+                    fontSize: "16px", fontWeight: 600,
+                    color: isOwn ? color : "var(--text-1)",
+                    fontFamily: "'Outfit', sans-serif",
+                  }}>
+                    {group.authorName}
+                  </span>
+                  {isOwn && (
+                    <span style={{ fontSize: "11px", color: "var(--text-3)", fontWeight: 500 }}>
+                      [you]
+                    </span>
+                  )}
+                  <span style={{ fontSize: "12px", color: "var(--text-4)", fontWeight: 400 }}>
+                    {firstMsg ? formatTimestamp(firstMsg.createdAt) : ""}
+                  </span>
+                </div>
+              )}
+              <p style={{
+                fontSize: "16px",
+                lineHeight: 1.5,
+                color: "var(--text-2)",
+                whiteSpace: "pre-wrap",
+                wordBreak: "break-word",
+                margin: 0,
+              }}>
+                {msg.content}
+              </p>
+            </div>
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -371,9 +395,9 @@ function TextPanel({ channelSlug, channelName }: { channelSlug: string; channelN
           </div>
         )}
 
-        {groups.map(group => (
+        {groups.map((group, idx) => (
           <MessageGroup
-            key={group.authorId + group.messages[0]?.id}
+            key={group.authorId + group.messages[0]?.id + idx}
             group={group}
             isOwn={group.authorId === user?.id}
           />

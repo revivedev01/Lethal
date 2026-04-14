@@ -4,47 +4,6 @@ import { useRelayStore } from "../lib/store";
 
 type Mode = "login" | "signup";
 
-/* ── Inline icon components ───────────────────────────────── */
-const IconRelay = () => (
-  <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
-    <rect width="32" height="32" rx="10" fill="var(--accent)" />
-    <path
-      d="M8 22 L16 10 L24 22"
-      stroke="#fff"
-      strokeWidth="3"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-    <circle cx="16" cy="10" r="2.5" fill="#fff" />
-  </svg>
-);
-
-const IconShield = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-  </svg>
-);
-
-const IconZap = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-  </svg>
-);
-
-const IconLayers = () => (
-  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <polygon points="12 2 2 7 12 12 22 7 12 2" />
-    <polyline points="2 17 12 22 22 17" />
-    <polyline points="2 12 12 17 22 12" />
-  </svg>
-);
-
-const FEATURES = [
-  { icon: <IconShield />, label: "End-to-end encrypted sessions" },
-  { icon: <IconZap />,    label: "Real-time gateway messaging" },
-  { icon: <IconLayers />, label: "Unified web, desktop & API" },
-];
-
 export function AuthScreen() {
   const [mode, setMode] = useState<Mode>("login");
   const [email, setEmail]       = useState("");
@@ -60,17 +19,11 @@ export function AuthScreen() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     clearError();
-    if (mode === "login") {
-      await login(email, password);
-    } else {
-      await signup(email, username, password);
-    }
+    if (mode === "login") await login(email, password);
+    else await signup(email, username, password);
   };
 
-  const switchMode = (m: Mode) => {
-    setMode(m);
-    clearError();
-  };
+  const switchMode = (m: Mode) => { setMode(m); clearError(); };
 
   return (
     <main style={{
@@ -80,175 +33,68 @@ export function AuthScreen() {
       justifyContent: "center",
       background: "var(--bg-base)",
       padding: "24px 16px",
-      position: "relative",
-      overflow: "hidden",
     }}>
-      {/* Ambient glow blobs */}
       <div style={{
-        position: "absolute",
-        top: "-15%",
-        left: "-10%",
-        width: "600px",
-        height: "600px",
-        borderRadius: "50%",
-        background: "radial-gradient(circle, rgba(79,131,255,0.08) 0%, transparent 70%)",
-        pointerEvents: "none",
-      }} />
-      <div style={{
-        position: "absolute",
-        bottom: "-15%",
-        right: "-10%",
-        width: "500px",
-        height: "500px",
-        borderRadius: "50%",
-        background: "radial-gradient(circle, rgba(124,90,240,0.07) 0%, transparent 70%)",
-        pointerEvents: "none",
-      }} />
-
-      <div style={{
-        display: "grid",
-        gridTemplateColumns: "1fr 1fr",
-        gap: "0",
         width: "100%",
-        maxWidth: "920px",
-        borderRadius: "16px",
-        overflow: "hidden",
-        border: "1px solid var(--border)",
-        boxShadow: "var(--shadow-lg)",
-        position: "relative",
-        zIndex: 1,
+        maxWidth: "400px",
+        display: "flex",
+        flexDirection: "column",
+        gap: "24px",
       }}
-        className="anim-scale-in"
+        className="anim-fade-up"
       >
-        {/* ── Left panel — hero ─────────────────────────────── */}
-        <div style={{
-          background: "var(--bg-1)",
-          padding: "48px 40px",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          gap: "48px",
-          borderRight: "1px solid var(--border)",
-        }}>
-          {/* Logo + wordmark */}
-          <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            <IconRelay />
-            <span style={{
-              fontFamily: "'Outfit', sans-serif",
-              fontSize: "20px",
-              fontWeight: 800,
-              color: "var(--text-1)",
-              letterSpacing: "-0.02em",
-            }}>
-              Relay
-            </span>
-            <span style={{
-              marginLeft: "4px",
-              fontSize: "10px",
-              fontWeight: 600,
-              letterSpacing: "0.08em",
-              textTransform: "uppercase",
-              padding: "2px 8px",
-              borderRadius: "100px",
-              background: "var(--accent-subtle)",
-              color: "var(--accent)",
-            }}>
-              v2
-            </span>
+        {/* Logo + wordmark */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "12px" }}>
+          <div style={{
+            width: "56px", height: "56px",
+            borderRadius: "16px",
+            background: "var(--accent)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            fontSize: "26px", fontWeight: 800, color: "#fff",
+            fontFamily: "'Outfit', sans-serif",
+            boxShadow: "0 4px 24px var(--accent-glow)",
+          }}>
+            R
           </div>
-
-          {/* Headline */}
-          <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", gap: "16px" }}>
+          <div style={{ textAlign: "center" }}>
             <h1 style={{
               fontFamily: "'Outfit', sans-serif",
-              fontSize: "36px",
-              fontWeight: 800,
-              lineHeight: 1.1,
+              fontSize: "24px", fontWeight: 800,
               color: "var(--text-1)",
-              letterSpacing: "-0.03em",
+              letterSpacing: "-0.02em",
+              margin: 0,
             }}>
-              Private communication,{" "}
-              <span style={{
-                background: "linear-gradient(135deg, var(--accent), #a259ff)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}>
-                rebuilt
-              </span>{" "}
-              from scratch.
+              Relay
             </h1>
             <p style={{
-              fontSize: "15px",
-              lineHeight: 1.65,
+              fontSize: "14px",
               color: "var(--text-3)",
-              maxWidth: "340px",
+              margin: "4px 0 0",
+              lineHeight: 1.5,
             }}>
-              One private server. One shared backend. Web, desktop, and admin — all on the same real-time pipeline.
+              {mode === "login"
+                ? "Welcome back. Sign in to continue."
+                : "Create your account to get started."}
             </p>
-          </div>
-
-          {/* Feature list */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-            {FEATURES.map(({ icon, label }) => (
-              <div key={label} style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "12px",
-                padding: "12px 14px",
-                borderRadius: "10px",
-                background: "var(--bg-2)",
-                border: "1px solid var(--border)",
-                color: "var(--text-2)",
-                fontSize: "13.5px",
-                fontWeight: 500,
-              }}>
-                <span style={{ color: "var(--accent)", flexShrink: 0 }}>{icon}</span>
-                {label}
-              </div>
-            ))}
           </div>
         </div>
 
-        {/* ── Right panel — form ────────────────────────────── */}
+        {/* Card */}
         <div style={{
-          background: "var(--bg-base)",
-          padding: "48px 40px",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          gap: "28px",
+          background: "var(--bg-1)",
+          border: "1px solid var(--border)",
+          borderRadius: "12px",
+          padding: "28px 24px",
+          boxShadow: "var(--shadow-lg)",
         }}>
-          {/* Header */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
-            <p style={{
-              fontSize: "11px",
-              fontWeight: 600,
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              color: "var(--text-4)",
-            }}>
-              Access Relay
-            </p>
-            <h2 style={{
-              fontFamily: "'Outfit', sans-serif",
-              fontSize: "26px",
-              fontWeight: 700,
-              color: "var(--text-1)",
-              letterSpacing: "-0.02em",
-            }}>
-              {mode === "login" ? "Welcome back" : "Create account"}
-            </h2>
-          </div>
-
           {/* Mode toggle */}
           <div style={{
             display: "flex",
             gap: "4px",
             padding: "4px",
-            borderRadius: "10px",
+            borderRadius: "8px",
             background: "var(--bg-2)",
-            border: "1px solid var(--border)",
+            marginBottom: "24px",
           }}>
             {(["login", "signup"] as Mode[]).map(m => (
               <button
@@ -258,26 +104,27 @@ export function AuthScreen() {
                 style={{
                   flex: 1,
                   padding: "8px",
-                  borderRadius: "7px",
+                  borderRadius: "5px",
                   border: "none",
-                  fontSize: "13.5px",
+                  fontSize: "14px",
                   fontWeight: 600,
                   cursor: "pointer",
-                  transition: "background 0.15s ease, color 0.15s ease",
+                  transition: "background 0.15s, color 0.15s",
                   background: mode === m ? "var(--bg-4)" : "transparent",
                   color: mode === m ? "var(--text-1)" : "var(--text-3)",
-                  boxShadow: mode === m ? "var(--shadow-sm)" : "none",
                 }}
               >
-                {m === "login" ? "Sign in" : "Create account"}
+                {m === "login" ? "Sign in" : "Sign up"}
               </button>
             ))}
           </div>
 
           {/* Form */}
           <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-            <label style={{ display: "flex", flexDirection: "column", gap: "7px" }}>
-              <span style={{ fontSize: "13px", fontWeight: 500, color: "var(--text-2)" }}>Email</span>
+            <label style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+              <span style={{ fontSize: "13px", fontWeight: 500, color: "var(--text-3)", textTransform: "uppercase", letterSpacing: "0.06em" }}>
+                Email
+              </span>
               <Input
                 type="email"
                 autoComplete="email"
@@ -289,11 +136,13 @@ export function AuthScreen() {
             </label>
 
             {mode === "signup" && (
-              <label style={{ display: "flex", flexDirection: "column", gap: "7px" }}>
-                <span style={{ fontSize: "13px", fontWeight: 500, color: "var(--text-2)" }}>Username</span>
+              <label style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                <span style={{ fontSize: "13px", fontWeight: 500, color: "var(--text-3)", textTransform: "uppercase", letterSpacing: "0.06em" }}>
+                  Username
+                </span>
                 <Input
                   autoComplete="username"
-                  placeholder="relay_owner"
+                  placeholder="your_handle"
                   required
                   value={username}
                   onChange={e => setUsername(e.target.value)}
@@ -301,27 +150,28 @@ export function AuthScreen() {
               </label>
             )}
 
-            <label style={{ display: "flex", flexDirection: "column", gap: "7px" }}>
-              <span style={{ fontSize: "13px", fontWeight: 500, color: "var(--text-2)" }}>Password</span>
+            <label style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+              <span style={{ fontSize: "13px", fontWeight: 500, color: "var(--text-3)", textTransform: "uppercase", letterSpacing: "0.06em" }}>
+                Password
+              </span>
               <Input
                 type="password"
                 autoComplete={mode === "login" ? "current-password" : "new-password"}
-                placeholder="At least 8 characters"
+                placeholder="••••••••"
                 required
                 value={password}
                 onChange={e => setPassword(e.target.value)}
               />
             </label>
 
-            {/* Error */}
             {error && (
               <div style={{
                 padding: "10px 14px",
-                borderRadius: "8px",
+                borderRadius: "6px",
                 background: "var(--danger-subtle)",
                 border: "1px solid var(--danger)",
                 color: "var(--danger)",
-                fontSize: "13px",
+                fontSize: "14px",
                 lineHeight: 1.5,
               }}
                 className="anim-fade-up"
@@ -341,41 +191,35 @@ export function AuthScreen() {
                 <>
                   <span style={{
                     display: "inline-block",
-                    width: "14px",
-                    height: "14px",
+                    width: "14px", height: "14px",
                     border: "2px solid rgba(255,255,255,0.3)",
                     borderTopColor: "#fff",
                     borderRadius: "50%",
                     animation: "spin 0.7s linear infinite",
+                    marginRight: "4px",
                   }} />
                   Connecting...
                 </>
-              ) : mode === "login" ? "Enter Relay →" : "Create account →"}
+              ) : mode === "login" ? "Sign in to Relay" : "Create account"}
             </Button>
           </form>
-
-          {/* Footer hint */}
-          <p style={{ fontSize: "12px", color: "var(--text-4)", textAlign: "center" }}>
-            {mode === "login"
-              ? "Don't have an account? "
-              : "Already have an account? "}
-            <button
-              type="button"
-              onClick={() => switchMode(mode === "login" ? "signup" : "login")}
-              style={{
-                background: "none",
-                border: "none",
-                color: "var(--accent)",
-                fontSize: "12px",
-                fontWeight: 600,
-                cursor: "pointer",
-                padding: 0,
-              }}
-            >
-              {mode === "login" ? "Sign up" : "Sign in"}
-            </button>
-          </p>
         </div>
+
+        {/* Footer switch */}
+        <p style={{ fontSize: "13px", color: "var(--text-4)", textAlign: "center", margin: 0 }}>
+          {mode === "login" ? "Don't have an account? " : "Already have an account? "}
+          <button
+            type="button"
+            onClick={() => switchMode(mode === "login" ? "signup" : "login")}
+            style={{
+              background: "none", border: "none",
+              color: "var(--accent)", fontSize: "13px",
+              fontWeight: 600, cursor: "pointer", padding: 0,
+            }}
+          >
+            {mode === "login" ? "Sign up" : "Sign in"}
+          </button>
+        </p>
       </div>
     </main>
   );
