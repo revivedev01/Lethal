@@ -5,7 +5,7 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&family=Outfit:wght@600;700;800&display=swap");
 
-@tailwind base;
+/* Removed @tailwind base (Preflight) — it resets font sizes and breaks our design system */
 @tailwind components;
 @tailwind utilities;
 
@@ -137,7 +137,7 @@
 }
 
 /* ────────────────────────────────────────────────────────────────
-   GLOBAL THEME TRANSITION
+   GLOBAL RESET + NORMALIZATION (replaces @tailwind base / preflight)
    ──────────────────────────────────────────────────────────────── */
 *,
 *::before,
@@ -168,10 +168,13 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
   background-color: var(--bg-base);
   color: var(--text-1);
   height: 100%;
@@ -185,12 +188,19 @@ body {
   flex-direction: column;
 }
 
+/* Ensure all interactive elements inherit font — critical after removing Tailwind base */
 button,
 input,
 textarea,
-select {
-  font: inherit;
+select,
+optgroup {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
   color: inherit;
+  background: none;
+  border: none;
 }
 
 a {
@@ -200,6 +210,15 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+
+img, svg, video {
+  display: block;
+  max-width: 100%;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
 }
 
 /* ────────────────────────────────────────────────────────────────

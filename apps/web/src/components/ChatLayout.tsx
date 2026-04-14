@@ -347,18 +347,19 @@ function TextPanel({ channelSlug, channelName }: { channelSlug: string; channelN
     }}>
       {/* Sub-header: # channel-name */}
       <div style={{
-        height: "45px",
+        height: "52px",
         display: "flex",
         alignItems: "center",
-        padding: "0 16px",
-        gap: "8px",
+        padding: "0 20px",
+        gap: "10px",
         borderBottom: "1px solid var(--border)",
         background: "var(--bg-base)",
         flexShrink: 0,
+        boxShadow: "0 1px 0 rgba(0,0,0,0.2)",
       }}>
-        <span style={{ color: "var(--text-3)" }}><IconHash size={18} /></span>
+        <span style={{ color: "var(--text-3)", display: "flex" }}><IconHash size={20} /></span>
         <span style={{
-          fontSize: "16px",
+          fontSize: "18px",
           fontWeight: 700,
           color: "var(--text-1)",
           fontFamily: "'Outfit', sans-serif",
@@ -420,15 +421,15 @@ function TextPanel({ channelSlug, channelName }: { channelSlug: string; channelN
       )}
 
       {/* Composer */}
-      <div style={{ padding: "0 16px 8px", flexShrink: 0 }}>
+      <div style={{ padding: "0 20px 16px", flexShrink: 0 }}>
         <form onSubmit={handleSend}>
           <div style={{
             display: "flex",
             alignItems: "flex-end",
             gap: "12px",
-            padding: "11px 16px",
+            padding: "14px 18px",
             background: "var(--bg-3)",
-            borderRadius: "6px",
+            borderRadius: "8px",
             border: "1px solid transparent",
             transition: "border-color 0.15s ease",
           }}
@@ -453,9 +454,9 @@ function TextPanel({ channelSlug, channelName }: { channelSlug: string; channelN
                 outline: "none",
                 resize: "none",
                 fontSize: "16px",
+                lineHeight: "24px",
                 color: "var(--text-1)",
-                lineHeight: 1.5,
-                fontFamily: "inherit",
+                fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
                 minHeight: "24px",
                 maxHeight: "144px",
                 overflow: "hidden",
@@ -465,8 +466,8 @@ function TextPanel({ channelSlug, channelName }: { channelSlug: string; channelN
               type="submit"
               disabled={!composer.trim() || sending}
               style={{
-                width: "32px",
-                height: "32px",
+                width: "36px",
+                height: "36px",
                 borderRadius: "6px",
                 border: "none",
                 background: "transparent",
@@ -485,7 +486,7 @@ function TextPanel({ channelSlug, channelName }: { channelSlug: string; channelN
               <IconSend />
             </button>
           </div>
-          <p style={{ fontSize: "12px", color: "var(--text-4)", marginTop: "5px", paddingLeft: "2px" }}>
+          <p style={{ fontSize: "12px", color: "var(--text-4)", marginTop: "6px", paddingLeft: "2px" }}>
             Enter: Send · Shift+Enter: newline · @: mention
           </p>
         </form>
@@ -652,12 +653,12 @@ export function ChatLayout() {
       overflow: "hidden",
       fontFamily: "'Inter', sans-serif",
     }}>
-      {/* ── TOP NAVIGATION BAR ───────────────────────── */}
+      {/* ── TOP NAVIGATION BAR ───────────────── */}
       <div style={{
-        height: "48px",
+        height: "54px",
         display: "flex",
         alignItems: "center",
-        padding: "0 12px",
+        padding: "0 16px",
         background: "var(--bg-1)",
         borderBottom: "1px solid var(--border)",
         flexShrink: 0,
@@ -670,20 +671,21 @@ export function ChatLayout() {
           display: "flex",
           alignItems: "center",
           gap: "10px",
-          paddingRight: "16px",
+          paddingRight: "20px",
           borderRight: "1px solid var(--border)",
-          marginRight: "4px",
+          marginRight: "8px",
           flexShrink: 0,
+          cursor: "default",
         }}>
           <div style={{
-            width: "28px",
-            height: "28px",
-            borderRadius: "8px",
+            width: "34px",
+            height: "34px",
+            borderRadius: "10px",
             background: serverColor,
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            fontSize: "13px",
+            fontSize: "16px",
             fontWeight: 800,
             color: "#fff",
             fontFamily: "'Outfit', sans-serif",
@@ -692,7 +694,7 @@ export function ChatLayout() {
             {serverInitial}
           </div>
           <span style={{
-            fontSize: "15px",
+            fontSize: "16px",
             fontWeight: 700,
             color: "var(--text-1)",
             fontFamily: "'Outfit', sans-serif",
@@ -718,13 +720,13 @@ export function ChatLayout() {
             style={{
               display: "flex",
               alignItems: "center",
-              gap: "6px",
-              padding: "5px 10px",
+              gap: "7px",
+              padding: "7px 12px",
               borderRadius: "4px",
               border: "none",
               background: activeView === "text" ? "var(--bg-hover)" : "transparent",
               color: activeView === "text" ? "var(--text-1)" : "var(--text-3)",
-              fontSize: "14px",
+              fontSize: "15px",
               fontWeight: activeView === "text" ? 600 : 500,
               cursor: "pointer",
               transition: "background 0.12s ease, color 0.12s ease",
@@ -743,7 +745,7 @@ export function ChatLayout() {
               }
             }}
           >
-            <IconHash size={14} />
+            <IconHash size={16} />
             {textChannel?.name?.toLowerCase() ?? "general"}
           </button>
 
@@ -753,13 +755,13 @@ export function ChatLayout() {
             style={{
               display: "flex",
               alignItems: "center",
-              gap: "6px",
-              padding: "5px 10px",
+              gap: "7px",
+              padding: "7px 12px",
               borderRadius: "4px",
               border: "none",
               background: activeView === "voice" ? "var(--bg-hover)" : "transparent",
               color: activeView === "voice" ? "var(--text-1)" : "var(--text-3)",
-              fontSize: "14px",
+              fontSize: "15px",
               fontWeight: activeView === "voice" ? 600 : 500,
               cursor: "pointer",
               transition: "background 0.12s ease, color 0.12s ease",
@@ -778,7 +780,7 @@ export function ChatLayout() {
               }
             }}
           >
-            <IconVolume size={14} />
+            <IconVolume size={16} />
             {voiceChannel?.name?.toUpperCase() ?? "GENERAL"}
           </button>
         </div>
@@ -797,12 +799,13 @@ export function ChatLayout() {
             display: "flex",
             alignItems: "center",
             gap: "6px",
-            fontSize: "13px",
+            fontSize: "14px",
             color: "var(--text-3)",
             fontWeight: 500,
+            whiteSpace: "nowrap",
           }}>
             <span style={{
-              width: "8px", height: "8px", borderRadius: "50%",
+              width: "9px", height: "9px", borderRadius: "50%",
               background: "var(--online)",
               display: "inline-block",
               flexShrink: 0,
@@ -814,17 +817,17 @@ export function ChatLayout() {
           <div style={{
             display: "flex",
             alignItems: "center",
-            gap: "8px",
+            gap: "9px",
           }}>
             <div style={{
-              width: "28px",
-              height: "28px",
+              width: "32px",
+              height: "32px",
               borderRadius: "50%",
               background: getAvatarColor(userName),
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              fontSize: "12px",
+              fontSize: "14px",
               fontWeight: 700,
               color: "#fff",
               fontFamily: "'Outfit', sans-serif",
@@ -833,7 +836,7 @@ export function ChatLayout() {
               {getInitial(userName)}
             </div>
             <span style={{
-              fontSize: "14px",
+              fontSize: "15px",
               fontWeight: 600,
               color: "var(--text-1)",
               fontFamily: "'Outfit', sans-serif",
@@ -847,8 +850,8 @@ export function ChatLayout() {
             onClick={logout}
             title="Sign out"
             style={{
-              width: "30px",
-              height: "30px",
+              width: "34px",
+              height: "34px",
               borderRadius: "6px",
               border: "none",
               background: "transparent",
@@ -858,6 +861,7 @@ export function ChatLayout() {
               justifyContent: "center",
               cursor: "pointer",
               transition: "background 0.12s ease, color 0.12s ease",
+              flexShrink: 0,
             }}
             onMouseEnter={e => {
               (e.currentTarget as HTMLElement).style.background = "var(--danger-subtle)";
